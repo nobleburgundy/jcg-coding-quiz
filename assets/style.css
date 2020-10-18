@@ -1,3 +1,20 @@
+nav {
+    min-width: 306px; 
+}
+
+nav a {
+    font-family: 'Roboto Slab', monospace;
+    /* letter-spacing: 0.3rem; */
+}
+
+p {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    font-family: 'Roboto Slab', monospace;
+}
+
 #score-time p {
     margin: 0;
 }
