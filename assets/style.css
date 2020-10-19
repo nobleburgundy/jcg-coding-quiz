@@ -18,3 +18,7 @@ h1 {
 #score-time p {
     margin: 0;
 }
+
+#question-article {
+    display: none;
+}
