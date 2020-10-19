@@ -22,3 +22,7 @@ h1 {
 #question-article {
     display: none;
 }
+
+#answer-div {
+    width: 100%;
+}
