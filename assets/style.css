@@ -15,6 +15,10 @@ h1 {
     font-family: 'Roboto Slab', monospace;
 }
 
+#score-time {
+    display: none;
+}
+
 #score-time p {
     margin: 0;
 }

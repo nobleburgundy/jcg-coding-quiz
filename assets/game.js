@@ -2,6 +2,7 @@
 let startButton = document.querySelector("button#start");
 let jumbotron = document.querySelector("article#jumbotron-start");
 let questionArticle = document.querySelector("article#question-article");
+let timeAndScoreElement = document.querySelector("div#score-time");
 let gameTimer = document.querySelector("span#time");
 let scoreElement = document.querySelector("span#score");
 let answerButtons = document.querySelectorAll("button.btn-outline-primary");
@@ -27,6 +28,7 @@ function startGame() {
   updateQuestion(currentQuestionId);
   jumbotron.style.display = "none";
   questionArticle.style.display = "block";
+  timeAndScoreElement.style.display = "block";
   runTimer();
 }
 
@@ -88,6 +90,9 @@ function endGame() {
       questions.length
     } (% ${getScorePercentage()})`
   );
+
+  // restart
+  location.reload();
 
   //pop modal with score info, save high score with initials, and restart button?
 }
