@@ -5,6 +5,7 @@ let questionArticle = document.querySelector("article#question-article");
 let timeAndScoreElement = document.querySelector("div#score-time");
 let gameTimer = document.querySelector("span#time");
 let scoreElement = document.querySelector("span#score");
+let highscoreLink = document.querySelector("a#high-score-link");
 let answerButtons = document.querySelectorAll("button.btn-outline-primary");
 let answerDiv = document.querySelector("div#answer-div");
 let questionTextElement = document.querySelector("h3#question-text");
@@ -27,6 +28,7 @@ let timerElement = startButton.addEventListener("click", function (event) {
 function startGame() {
   updateQuestion(currentQuestionId);
   jumbotron.style.display = "none";
+  highscoreLink.style.display = "none";
   questionArticle.style.display = "block";
   timeAndScoreElement.style.display = "block";
   runTimer();
