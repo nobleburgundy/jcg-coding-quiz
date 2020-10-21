@@ -6,13 +6,13 @@ let timeAndScoreElement = document.querySelector("div#score-time");
 let gameTimer = document.querySelector("span#time");
 let scoreElement = document.querySelector("span#score");
 let highscoreLink = document.querySelector("a#high-score-link");
+let questionForm = document.querySelector("form#question-form");
 let answerButtons = document.querySelectorAll("button.btn-outline-primary");
 let answerDiv = document.querySelector("div#answer-div");
-let questionTextElement = document.querySelector("h3#question-text");
-let answer1Element = document.querySelector("button#answer1");
-let answer2Element = document.querySelector("button#answer2");
-let answer3Element = document.querySelector("button#answer3");
-let answer4Element = document.querySelector("button#answer4");
+let answer1Element = document.querySelector("div#answer1");
+let answer2Element = document.querySelector("div#answer2");
+let answer3Element = document.querySelector("div#answer3");
+let answer4Element = document.querySelector("div#answer4");
 
 // Initialize Game Variables
 let currentQuestionId = 1;
@@ -57,6 +57,7 @@ answerDiv.addEventListener("click", function (event) {
   }
 
   // Update to next question regardless of correct/incorrect answer
+  clearPreviousQuestion();
   currentQuestionId++;
 
   // Only update to the next question if there are questions left
@@ -90,7 +91,7 @@ function endGame() {
   alert(
     `GAME OVER\nYOUR SCORE: ${score}\nAnswered ${correctAnswerCount} out of ${
       questions.length
-    } (% ${getScorePercentage()})`
+    } (${getScorePercentage()}%)`
   );
 
   // restart
@@ -102,11 +103,25 @@ function endGame() {
 function updateQuestion(questionId) {
   let questionData = questions[questionId - 1];
 
+  let questionTextElement = document.createElement("h3");
+  questionTextElement.id = "question-text";
   questionTextElement.innerHTML = questionData.question.questionText;
-  answer1Element.textContent = questionData.question.answer1;
-  answer2Element.textContent = questionData.question.answer2;
-  answer3Element.textContent = questionData.question.answer3;
-  answer4Element.textContent = questionData.question.answer4;
+  questionForm.prepend(questionTextElement);
+
+  for (let index = 0; index < 4; index++) {
+    let div = document.createElement("div");
+    div.setAttribute("class", "btn btn-small btn-outline-primary");
+    div.id = `answer${index + 1}`;
+    div.textContent = questionData.question[`answer${index + 1}`];
+    answerDiv.appendChild(div);
+  }
+}
+
+// Clear the previous question after it was answered
+function clearPreviousQuestion() {
+  // The first child is the question text h3
+  questionForm.firstChild.remove();
+  answerDiv.innerHTML = "";
 }
 
 // Question List as an array of objects containing text, possible answers,
@@ -139,18 +154,6 @@ let questions = [
   {
     id: 3,
     question: {
-      questionText: "What tag is used to tell the browser what character set to use?",
-      answer1: "<metaphysical type=charset>",
-      answer2: "<meta src='UTF-8'>UTF</meta>",
-      answer3: "<script type='charset' val='UTF-8'>",
-      answer4: "<meta charset='UTF-8'>",
-      correctAnswer: "answer4",
-    },
-    worth: 10,
-  },
-  {
-    id: 4,
-    question: {
       questionText: "When looking at the box model, in what order do you calculate values?",
       answer1: "top, right, left, bottom",
       answer2: "up, down, left, right",
@@ -161,7 +164,7 @@ let questions = [
     worth: 10,
   },
   {
-    id: 5,
+    id: 4,
     question: {
       questionText: "What does CSS stand for?",
       answer1: "Cool Site Styles",
