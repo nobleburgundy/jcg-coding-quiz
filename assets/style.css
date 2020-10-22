@@ -2,31 +2,22 @@ nav {
     min-width: 360px; 
 }
 
-nav a {
+h1, nav a {
     font-family: 'Roboto Slab', monospace;
-    /* letter-spacing: 0.3rem; */
 }
 
 p {
     font-family: 'Courier New', Courier, monospace;
 }
 
-h1 {
-    font-family: 'Roboto Slab', monospace;
-}
-
-#score-time {
+#score-time, #question-article {
     display: none;
 }
 
 #score-time p {
     margin: 0;
 }
-
-#question-article {
-    display: none;
-}
-
+/* 
 #answer-div {
     width: 100%;
-}
+} */
