@@ -26,10 +26,3 @@ p {
 pre {
     font-size: medium;
 }
-
-@media (hover: none) {
-    .btn:hover {
-        background-color: inherit;
-        color: inherit;
-    }
-}
