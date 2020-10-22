@@ -8,7 +8,7 @@ let scoreElement = document.querySelector("span#score");
 let highscoreLink = document.querySelector("a#high-score-link");
 let questionForm = document.querySelector("form#question-form");
 let answerButtons = document.querySelectorAll("button.btn-outline-primary");
-let answerDiv = document.querySelector("div#answer-div");
+// let answerDiv = document.querySelector("div#answer-div");
 let answer1Element = document.querySelector("div#answer1");
 let answer2Element = document.querySelector("div#answer2");
 let answer3Element = document.querySelector("div#answer3");
@@ -46,7 +46,7 @@ function runTimer() {
   }, interval);
 }
 
-answerDiv.addEventListener("click", function (event) {
+questionForm.addEventListener("click", function (event) {
   event.preventDefault();
   if (event.target.id === getCorrectAnswer(currentQuestionId)) {
     console.log("Correct!");
@@ -113,7 +113,7 @@ function updateQuestion(questionId) {
     div.setAttribute("class", "btn btn-small btn-outline-primary");
     div.id = `answer${index + 1}`;
     div.textContent = questionData.question[`answer${index + 1}`];
-    answerDiv.appendChild(div);
+    questionForm.appendChild(div);
   }
 }
 
@@ -121,7 +121,7 @@ function updateQuestion(questionId) {
 function clearPreviousQuestion() {
   // The first child is the question text h3
   questionForm.firstChild.remove();
-  answerDiv.innerHTML = "";
+  questionForm.innerHTML = "";
 }
 
 // Question List as an array of objects containing text, possible answers,
