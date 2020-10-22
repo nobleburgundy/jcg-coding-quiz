@@ -17,7 +17,18 @@ p {
 #score-time p {
     margin: 0;
 }
-/* 
-#answer-div {
+
+#answer-div div {
     width: 100%;
-} */
+    min-width: 300px;
+}
+
+pre {
+    font-size: medium;
+}
+
+@media (hover: none) {
+    .btn:hover {
+        background-color: inherit;
+    }
+}
