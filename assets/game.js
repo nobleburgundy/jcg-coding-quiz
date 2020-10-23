@@ -49,11 +49,11 @@ function runTimer() {
 questionForm.addEventListener("click", function (event) {
   event.preventDefault();
   if (event.target.id === getCorrectAnswer(currentQuestionId)) {
-    console.log("Correct!");
     correctAnswerCount++;
     updateScore();
+    showAnswerFeedback("Correct!");
   } else {
-    console.log("Incorrect");
+    showAnswerFeedback("Wrong!");
   }
 
   // Update to next question regardless of correct/incorrect answer
@@ -85,6 +85,18 @@ function getScorePercentage() {
 function updateScore() {
   score += questions[currentQuestionId - 1].worth;
   scoreElement.textContent = score;
+}
+
+// Show some answer feedback for 1 second
+function showAnswerFeedback(text) {
+  let answerResultElement = document.createElement("h4");
+  answerResultElement.textContent = text;
+  questionArticle.lastElementChild.appendChild(answerResultElement);
+
+  // wait 1 second, then remove
+  setTimeout(() => {
+    answerResultElement.parentElement.removeChild(answerResultElement);
+  }, 1000);
 }
 
 function endGame() {
@@ -191,10 +203,10 @@ let questions = [
     id: 6,
     question: {
       questionText: "What prefix symbol is used to select an element by <code>class</code> in a CSS file?",
-      answer1: "#",
-      answer2: ".",
-      answer3: "?",
-      answer4: "$",
+      answer1: "$",
+      answer2: "<id>",
+      answer3: "%",
+      answer4: ".",
       correctAnswer: "answer2",
     },
     worth: 10,
