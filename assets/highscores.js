@@ -6,8 +6,6 @@ function loadHighScores() {
   return highscores;
 }
 
-function clearHighScores() {}
-
 // Citation for sorting array of objects:
 // https://www.javascripttutorial.net/array/javascript-sort-an-array-of-objects/
 function sortHighScores() {
@@ -49,13 +47,21 @@ function setHighScores(max = 10) {
     }
   } else {
     let table = document.querySelector("table");
+    let removeHighScoresButton = document.querySelector("#clear-highscores");
     let noScoresMessage = document.createElement("p");
+    removeHighScoresButton.remove();
     noScoresMessage.textContent = "No high scores have been set yet.";
     table.parentElement.replaceChild(noScoresMessage, table);
   }
 }
 
 $(document).ready(function () {
+  $("#clear-highscores").on("click", function () {
+    if (confirm("Are you sure you want to do this?")) {
+      localStorage.removeItem("high-scores");
+      setHighScores();
+    }
+  });
   loadHighScores();
   setHighScores();
 });
