@@ -110,6 +110,7 @@ function endGame() {
     });
     $("#save-highscore-button").on("click", function () {
       saveHighScoreToLocalStorage();
+      window.location.href = "./highscores.html";
     });
   });
 }
@@ -157,8 +158,6 @@ function saveHighScoreToLocalStorage() {
     score: score,
     date: getTodaysDateFormated(),
   };
-
-  console.log(highscore);
 
   if (localStorage.getItem("high-scores") === null) {
     /* create it as an array of objects. Since this is the first,
@@ -242,7 +241,7 @@ let questions = [
       answer2: "<id>",
       answer3: "%",
       answer4: ".",
-      correctAnswer: "answer2",
+      correctAnswer: "answer4",
     },
     worth: 10,
   },
