@@ -82,6 +82,7 @@ function getScorePercentage() {
   return ((correctAnswerCount / questions.length) * 100).toFixed(0);
 }
 
+// increment the score element text
 function updateScore() {
   score += questions[currentQuestionId - 1].worth;
   scoreElement.textContent = score;
@@ -100,16 +101,14 @@ function showAnswerFeedback(text) {
 }
 
 function endGame() {
-  alert(
-    `GAME OVER\nYOUR SCORE: ${score}\nAnswered ${correctAnswerCount} out of ${
-      questions.length
-    } (${getScorePercentage()}%)`
-  );
-
-  // restart
-  location.reload();
-
-  //pop modal with score info, save high score with initials, and restart button?
+  $(document).ready(function () {
+    $("#modal-score-text").text(`${score}pts [${correctAnswerCount}\\${questions.length}]`);
+    $("#modal-score-fraction").text(``);
+    $("#endModal").modal();
+    $("button.close").on("click", function () {
+      location.reload();
+    });
+  });
 }
 
 function updateQuestion(questionId) {
