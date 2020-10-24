@@ -46,6 +46,7 @@ function setHighScores(max = 10) {
       tr.appendChild(td_date);
     }
   } else {
+    // No high scores, so just display a
     let table = document.querySelector("table");
     let removeHighScoresButton = document.querySelector("#clear-highscores");
     let noScoresMessage = document.createElement("p");

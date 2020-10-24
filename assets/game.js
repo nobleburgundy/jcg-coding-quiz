@@ -8,7 +8,6 @@ let scoreElement = document.querySelector("span#score");
 let highscoreLink = document.querySelector("a#high-score-link");
 let questionForm = document.querySelector("form#question-form");
 let answerButtons = document.querySelectorAll("button.btn-outline-primary");
-// let answerDiv = document.querySelector("div#answer-div");
 let answer1Element = document.querySelector("div#answer1");
 let answer2Element = document.querySelector("div#answer2");
 let answer3Element = document.querySelector("div#answer3");
@@ -51,18 +50,9 @@ questionForm.addEventListener("click", function (event) {
   if (event.target.id === getCorrectAnswer(currentQuestionId)) {
     correctAnswerCount++;
     updateScore();
-    showAnswerFeedback("Correct!");
+    displayFeedbackThenAdvanceQuestion("Correct!");
   } else {
-    showAnswerFeedback("Wrong!");
-  }
-
-  // Update to next question regardless of correct/incorrect answer
-  clearPreviousQuestion();
-  currentQuestionId++;
-
-  // Only update to the next question if there are questions left
-  if (currentQuestionId <= questions.length) {
-    updateQuestion(currentQuestionId);
+    displayFeedbackThenAdvanceQuestion("Wrong!");
   }
 });
 
@@ -88,8 +78,8 @@ function updateScore() {
   scoreElement.textContent = score;
 }
 
-// Show some answer feedback for 1 second
-function showAnswerFeedback(text) {
+// Show some answer feedback for short period of time, then advance question
+function displayFeedbackThenAdvanceQuestion(text) {
   let answerResultElement = document.createElement("h4");
   answerResultElement.textContent = text;
   questionArticle.lastElementChild.appendChild(answerResultElement);
@@ -97,7 +87,15 @@ function showAnswerFeedback(text) {
   // wait 1 second, then remove
   setTimeout(() => {
     answerResultElement.parentElement.removeChild(answerResultElement);
-  }, 1000);
+    // Update to next question regardless of correct/incorrect answer
+    clearPreviousQuestion();
+    currentQuestionId++;
+
+    // Only update to the next question if there are questions left
+    if (currentQuestionId <= questions.length) {
+      updateQuestion(currentQuestionId);
+    }
+  }, 500);
 }
 
 // Show Game Over modal when the game ends
