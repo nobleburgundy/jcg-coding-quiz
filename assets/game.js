@@ -108,6 +108,9 @@ function endGame() {
     $("button.close").on("click", function () {
       location.reload();
     });
+    $("#save-highscore-button").on("click", function () {
+      saveHighScoreToLocalStorage();
+    });
   });
 }
 
@@ -135,6 +138,37 @@ function clearPreviousQuestion() {
   // The first child is the question text h3
   questionForm.firstChild.remove();
   questionForm.innerHTML = "";
+}
+
+function getTodaysDateFormated() {
+  let today = new Date();
+  let day = today.getDate();
+  let month = today.getMonth() + 1;
+  let year = today.getFullYear();
+  let todaysDate = `${month}/${day}/${year}`;
+
+  return todaysDate;
+}
+
+function saveHighScoreToLocalStorage() {
+  let initials = document.querySelector("#initials-input").value;
+  let highscore = {
+    initials: initials,
+    score: score,
+    date: getTodaysDateFormated(),
+  };
+
+  console.log(highscore);
+
+  if (localStorage.getItem("high-scores") === null) {
+    /* create it as an array of objects. Since this is the first,
+    create an array with a single object. */
+    localStorage.setItem("high-scores", JSON.stringify([highscore]));
+  } else {
+    let highscores = JSON.parse(localStorage.getItem("high-scores"));
+    highscores.push(highscore);
+    localStorage.setItem("high-scores", JSON.stringify(highscores));
+  }
 }
 
 // Question List as an array of objects containing text, possible answers,
