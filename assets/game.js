@@ -100,10 +100,10 @@ function showAnswerFeedback(text) {
   }, 1000);
 }
 
+// Show Game Over modal when the game ends
 function endGame() {
   $(document).ready(function () {
     $("#modal-score-text").text(`${score}pts [${correctAnswerCount}\\${questions.length}]`);
-    $("#modal-score-fraction").text(``);
     $("#endModal").modal();
     $("button.close").on("click", function () {
       location.reload();
@@ -114,11 +114,13 @@ function endGame() {
 function updateQuestion(questionId) {
   let questionData = questions[questionId - 1];
 
+  // Create question text h3
   let questionTextElement = document.createElement("h3");
   questionTextElement.id = "question-text";
   questionTextElement.innerHTML = questionData.question.questionText;
   questionForm.prepend(questionTextElement);
 
+  // Create divs for the questions and add styles
   for (let index = 0; index < 4; index++) {
     let div = document.createElement("div");
     div.setAttribute("class", "btn btn-small btn-outline-primary");
