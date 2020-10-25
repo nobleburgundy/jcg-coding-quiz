@@ -9,15 +9,16 @@ function loadHighScores() {
 // Citation for sorting array of objects:
 // https://www.javascripttutorial.net/array/javascript-sort-an-array-of-objects/
 function sortHighScores() {
-  let newAr = loadHighScores();
-  // Only sort if there are more than one element in the array
-  if (newAr.length > 1) {
-    newAr.sort(function (a, b) {
+  let highScoreArray = loadHighScores();
+  if (highScoreArray.length > 1) {
+    // Array.sort with compare function comparing the object scores
+    highScoreArray.sort(function (a, b) {
       return b.score - a.score;
     });
   } else {
-    return newAr;
+    return highScoreArray;
   }
+  return highScoreArray;
 }
 
 function setHighScores(max = 10) {
@@ -63,6 +64,5 @@ $(document).ready(function () {
       setHighScores();
     }
   });
-  loadHighScores();
   setHighScores();
 });

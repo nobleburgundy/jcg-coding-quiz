@@ -152,7 +152,7 @@ function getTodaysDateFormated() {
 function saveHighScoreToLocalStorage() {
   let initials = document.querySelector("#initials-input").value;
   let highscore = {
-    initials: initials,
+    initials: initials.toUpperCase(),
     score: score,
     date: getTodaysDateFormated(),
   };
