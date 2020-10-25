@@ -47,7 +47,7 @@ function runTimer() {
 
 questionForm.addEventListener("click", function (event) {
   event.preventDefault();
-  if (event.target.id === getCorrectAnswer(currentQuestionId)) {
+  if (event.target.id === getCorrectAnswer(currentQuestionId).toString()) {
     correctAnswerCount++;
     updateScore();
     displayFeedbackThenAdvanceQuestion("Correct!");
@@ -57,7 +57,7 @@ questionForm.addEventListener("click", function (event) {
 });
 
 function getCorrectAnswer(questionId) {
-  return questions[questionId - 1].question.correctAnswer;
+  return questions[questionId - 1].correctAnswerIndex;
 }
 
 function getTotalPotentialScore() {
@@ -84,7 +84,7 @@ function displayFeedbackThenAdvanceQuestion(text) {
   answerResultElement.textContent = text;
   questionArticle.lastElementChild.appendChild(answerResultElement);
 
-  // wait 1 second, then remove
+  // wait .5 seconds, then remove
   setTimeout(() => {
     answerResultElement.parentElement.removeChild(answerResultElement);
     // Update to next question regardless of correct/incorrect answer
@@ -114,20 +114,20 @@ function endGame() {
 }
 
 function updateQuestion(questionId) {
-  let questionData = questions[questionId - 1];
+  let currentQuestionData = questions[questionId - 1];
 
   // Create question text h3
   let questionTextElement = document.createElement("h3");
   questionTextElement.id = "question-text";
-  questionTextElement.innerHTML = questionData.question.questionText;
+  questionTextElement.innerHTML = currentQuestionData.questionText;
   questionForm.prepend(questionTextElement);
 
-  // Create divs for the questions and add styles
-  for (let index = 0; index < 4; index++) {
+  // Create divs for the possible answers and add styles
+  for (let index = 0; index < currentQuestionData.answers.length; index++) {
     let div = document.createElement("div");
     div.setAttribute("class", "btn btn-small btn-outline-primary");
-    div.id = `answer${index + 1}`;
-    div.textContent = questionData.question[`answer${index + 1}`];
+    div.id = index;
+    div.textContent = currentQuestionData.answers[index];
     questionForm.appendChild(div);
   }
 }
@@ -173,124 +173,94 @@ function saveHighScoreToLocalStorage() {
 let questions = [
   {
     id: 1,
-    question: {
-      questionText: "JSON stands for:",
-      answer1: "JavaScript Standards Organization Notation",
-      answer2: "Java Script Oracle Network",
-      answer3: "JavaScript Object Notation",
-      answer4: "Java Source Oriented Nodes",
-      correctAnswer: "answer3",
-    },
+    questionText: "JSON stands for:",
+    answers: [
+      "JavaScript Standards Organization Notation",
+      "Java Script Oracle Network",
+      "JavaScript Object Notation",
+      "Java Source Oriented Nodes",
+    ],
+    correctAnswerIndex: 2,
     worth: 10,
   },
   {
     id: 2,
-    question: {
-      questionText: "event.preventDefault() should be added to the ___",
-      answer1: "start of the inner function of the addEventListener.",
-      answer2: "end of the inner function of the addEventListener.",
-      answer3: "top of the file.",
-      answer4: "the HEAD section of the HTML file where this function is used.",
-      correctAnswer: "answer1",
-    },
+    questionText: "event.preventDefault() should be added to the ___",
+    answers: [
+      "start of the inner function of the addEventListener.",
+      "end of the inner function of the addEventListener.",
+      "top of the file.",
+      "the HEAD section of the HTML file where this function is used.",
+    ],
+    correctAnswerIndex: 0,
     worth: 10,
   },
   {
     id: 3,
-    question: {
-      questionText: "When looking at the box model, in what order do you calculate values?",
-      answer1: "top, right, left, bottom",
-      answer2: "up, down, left, right",
-      answer3: "top, right, bottom, left",
-      answer4: "North, South, East, West",
-      correctAnswer: "answer3",
-    },
+    questionText: "When looking at the box model, in what order do you calculate values?",
+    answers: [
+      "top, right, left, bottom",
+      "up, down, left, right",
+      "top, right, bottom, left",
+      "North, South, East, West",
+    ],
+    correctAnswerIndex: 2,
     worth: 10,
   },
   {
     id: 4,
-    question: {
-      questionText: "What does CSS stand for?",
-      answer1: "Cool Site Styles",
-      answer2: "Cascading Style Sheets",
-      answer3: "Cats Sound Silly",
-      answer4: "Cascading Style Sources",
-      correctAnswer: "answer2",
-    },
+    questionText: "What does CSS stand for?",
+    answers: ["Cool Site Styles", "Cascading Style Sheets", "Cats Sound Silly", "Cascading Style Sources"],
+    correctAnswerIndex: 1,
     worth: 10,
   },
   {
     id: 5,
-    question: {
-      questionText: "What prefix symbol is used to select an element by <code>id</code> in a CSS file?",
-      answer1: "#",
-      answer2: ".",
-      answer3: "?",
-      answer4: "$",
-      correctAnswer: "answer1",
-    },
+    questionText: "What prefix symbol is used to select an element by <code>id</code> in a CSS file?",
+    answers: ["#", ".", "?", "$"],
+    correctAnswerIndex: 0,
     worth: 10,
   },
   {
     id: 6,
-    question: {
-      questionText: "What prefix symbol is used to select an element by <code>class</code> in a CSS file?",
-      answer1: "$",
-      answer2: "<id>",
-      answer3: "%",
-      answer4: ".",
-      correctAnswer: "answer4",
-    },
+    questionText: "What prefix symbol is used to select an element by <code>class</code> in a CSS file?",
+    answers: ["*", "$", "?", "."],
+    correctAnswerIndex: 3,
     worth: 10,
   },
   {
     id: 7,
-    question: {
-      questionText: "Which of the following is true?",
-      answer1: "1 === '1'",
-      answer2: "1 == null",
-      answer3: "1 === true",
-      answer4: "1 !== true",
-      correctAnswer: "answer4",
-    },
+    questionText: "Which of the following is true?",
+    answers: ["1 === '1'", "1 == null", "1 === true", "1 !== true"],
+    correctAnswerIndex: 3,
     worth: 10,
   },
   {
     id: 8,
-    question: {
-      questionText: "What is returned by the following: <code>Math.floor(Math.random() * 5)</code>?",
-      answer1: "Random number between 1 and 5",
-      answer2: "Math",
-      answer3: "Random number between 0 and 5",
-      answer4: "Random number between 5 and infinity",
-      correctAnswer: "answer3",
-    },
+    questionText: "What is returned by the following: <code>Math.floor(Math.random() * 5)</code>?",
+    answers: [
+      "Random number between 1 and 5",
+      "Math",
+      "Random number between 0 and 5",
+      "Random number between 5 and infinity",
+    ],
+    correctAnswerIndex: 2,
     worth: 10,
   },
   {
     id: 9,
-    question: {
-      questionText:
-        "What is logged to the console by the following: <pre><code>let x = 0.1; \nlet y = 'test';\nconsole.log(x + y);</code></pre>",
-      answer1: "Undefined",
-      answer2: "0.1test",
-      answer3: "Null",
-      answer4: "Nan",
-      correctAnswer: "answer2",
-    },
+    questionText:
+      "What is logged to the console by the following: <pre><code>let x = 0.1; \nlet y = 'test';\nconsole.log(x + y);</code></pre>",
+    answers: ["Undefined", "0.1test", "Null", "Nan"],
+    correctAnswerIndex: 1,
     worth: 10,
   },
   {
     id: 10,
-    question: {
-      questionText:
-        "The following will return what? <pre><code>let x = 2, y = 140;\nif (x > 1 || y < 100) { \n  return true; \n} else { \n  return false; \n}</code></pre>",
-      answer1: "true",
-      answer2: "false",
-      answer3: "140",
-      answer4: "2",
-      correctAnswer: "answer1",
-    },
+    questionText:
+      "The following will return what? <pre><code>let x = 2, y = 140;\nif (x > 1 || y < 100) { \n  return true; \n} else { \n  return false; \n}</code></pre>",
+    answers: ["true", "false", "140", "2"],
+    correctAnswerIndex: 0,
     worth: 10,
   },
 ];
