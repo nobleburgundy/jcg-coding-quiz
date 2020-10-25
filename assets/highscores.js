@@ -64,5 +64,8 @@ $(document).ready(function () {
       setHighScores();
     }
   });
+  $("#restart-game").on("click", function () {
+    window.location.href = "index.html";
+  });
   setHighScores();
 });

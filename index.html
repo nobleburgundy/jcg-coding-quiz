@@ -66,17 +66,19 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <p>YOUR SCORE: <span id="modal-score-text"></span></p>
-                        <div id="top-ten">
-                            <p id="in-top-ten-or-not">CONGRATS! You scored in the local top 10.</p>
-                            <input type="text" class="form-control" id="initials-input" maxlength="4"
-                                placeholder="Please enter your initials" />
+                    <form id="high-score-form">
+                        <div class="modal-body">
+                            <p>YOUR SCORE: <span id="modal-score-text"></span></p>
+                            <div id="top-ten">
+                                <p id="in-top-ten-or-not">CONGRATS! You scored in the local top 10.</p>
+                                <input type="text" class="form-control" id="initials-input" maxlength="4"
+                                    placeholder="Please enter your initials" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="save-highscore-button">Save Highscore</button>
-                    </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" id="save-highscore-button" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

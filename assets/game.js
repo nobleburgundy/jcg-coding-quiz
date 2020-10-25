@@ -106,7 +106,8 @@ function endGame() {
     $("button.close").on("click", function () {
       location.reload();
     });
-    $("#save-highscore-button").on("click", function () {
+    $("#high-score-form").on("submit", function (event) {
+      event.preventDefault();
       saveHighScoreToLocalStorage();
       window.location.href = "./highscores.html";
     });
