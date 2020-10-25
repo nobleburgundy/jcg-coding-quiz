@@ -139,7 +139,7 @@ function clearPreviousQuestion() {
   questionForm.innerHTML = "";
 }
 
-function getTodaysDateFormated() {
+function getTodaysDateFormatted() {
   let today = new Date();
   let day = today.getDate();
   let month = today.getMonth() + 1;
@@ -154,7 +154,7 @@ function saveHighScoreToLocalStorage() {
   let highscore = {
     initials: initials.toUpperCase(),
     score: score,
-    date: getTodaysDateFormated(),
+    date: getTodaysDateFormatted(),
   };
 
   if (localStorage.getItem("high-scores") === null) {
